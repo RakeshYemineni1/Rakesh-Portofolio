@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakesh Yemineni - Full Stack Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        nav, section, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(52, 152, 219, 0.2);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(52, 152, 219, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #3498db;
+            font-family: 'JetBrains Mono', monospace;
+            text-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+        }
+
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .profile-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            backdrop-filter: blur(10px);
+        }
+
+        .profile-card:hover {
+            border-color: #3498db;
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(52, 152, 219, 0.3);
+        }
+
+        .profile-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: block;
+        }
+
+        .profile-icon.hackerrank {
+            width: 100px;
+            height: auto;
+        }
+
+        .profile-name {
+            color: #ffffff;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .profile-handle {
+            color: #909090;
+            font-size: 0.95em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        .resume-btn {
+            padding: 8px 20px;
+            border: 2px solid #3498db;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .resume-btn:hover {
+            background: #3498db;
+            color: #0a0a0a !important;
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.5);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #ffffff;
+            margin: 3px 0;
+        }
+
+        #hero {
+            padding: 150px 40px 80px;
+            text-align: center;
+            background: transparent;
+        }
+
+        #hero h1 {
+            font-size: 4em;
+            color: #3498db;
+            margin-bottom: 20px;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 20px rgba(52, 152, 219, 0.5);
+            letter-spacing: 3px;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(52, 152, 219, 0.5); }
+            to { text-shadow: 0 0 30px rgba(52, 152, 219, 0.8), 0 0 40px rgba(52, 152, 219, 0.5); }
+        }
+
+        #hero .subtitle {
+            font-size: 1.5em;
+            color: #b0b0b0;
+            margin-bottom: 10px;
+            font-weight: 400;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            color: #3498db;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(52, 152, 219, 0.3);
+        }
+
+        #about p {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.2em;
+            text-align: center;
+            color: #b0b0b0;
+            line-height: 1.8;
+        }
+
+        .slider-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 5px 30px rgba(52, 152, 219, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 300px;
+            background: #1a1a1a;
+            border: 1px solid #404040;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-title {
+            font-size: 2em;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .tech-stack {
+            color: #909090;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project-description {
+            color: #b0b0b0;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .project-link {
+            display: inline-block;
+            padding: 10px 25px;
+            background: transparent;
+            border: 2px solid #606060;
+            color: #e0e0e0;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .project-link:hover {
+            background: #606060;
+            color: #ffffff;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(96, 96, 96, 0.3);
+            border: 2px solid #606060;
+            color: #e0e0e0;
+            font-size: 2em;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .arrow:hover {
+            background: #606060;
+            color: #ffffff;
+        }
+
+        .arrow-left { left: -60px; }
+        .arrow-right { right: -60px; }
+
+        .dots {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #404040;
+            border: 2px solid #606060;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: #808080;
+        }
+
+        .skills-container {
+            overflow-x: auto;
+            position: relative;
+            padding: 20px 0;
+            cursor: grab;
+            scrollbar-width: none;
+        }
+
+        .skills-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .skills-container:active {
+            cursor: grabbing;
+        }
+
+        .skills-track {
+            display: flex;
+            gap: 30px;
+        }
+
+        .skill-item {
+            min-width: 150px;
+            height: 150px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .skill-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.4);
+            border-color: #3498db;
+        }
+
+        .skill-icon {
+            font-size: 3.5em;
+        }
+
+        .skill-name {
+            color: #e0e0e0;
+            font-weight: 600;
+        }
+
+        .two-column-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .column-section h3 {
+            font-size: 2em;
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(52, 152, 219, 0.1);
+            transition: all 0.3s;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+            transform: translateY(-5px);
+            border-color: #3498db;
+        }
+
+        .card-title {
+            font-size: 1.3em;
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .card-subtitle {
+            color: #909090;
+            margin-bottom: 15px;
+        }
+
+        .card-date {
+            color: #707070;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        #contact {
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-card:hover {
+            border-color: #3498db;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+        }
+
+        .contact-card h3 {
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .contact-card a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-card a:hover {
+            color: #3498db;
+        }
+
+        footer {
+            background: rgba(10, 10, 10, 0.9);
+            border-top: 1px solid rgba(52, 152, 219, 0.2);
+            padding: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 1.1em;
+            padding: 10px 20px;
+            border: 2px solid rgba(52, 152, 219, 0.3);
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #3498db;
+            color: #0a0a0a;
+            border-color: #3498db;
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.5);
+        }
+
+        @media (max-width: 968px) {
+            .two-column-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                left: -100%;
+                top: 60px;
+                flex-direction: column;
+                background: #1a1a1a;
+                width: 100%;
+                padding: 20px;
+                transition: 0.3s;
+                border-bottom: 1px solid #404040;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            #hero h1 {
+                font-size: 2.5em;
+            }
+
+            .arrow-left { left: 10px; }
+            .arrow-right { right: 10px; }
+
+            section {
+                padding: 60px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">PORTFOLIO</div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#hero">Home</a>
+                <a href="#about">About Me</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#profiles">Profiles</a>
+                <a href="#contact">Contact</a>
+                <a href="Rakesh_Resume.pdf" download class="resume-btn">Resume</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <h1>RAKESH YEMINENI</h1>
+        <p class="subtitle">Full-Stack Developer | Java Enthusiast | Problem Solver</p>
+    </section>
+
+    <section id="about">
+        <h2>ABOUT ME</h2>
+        <p>Results-oriented Full-Stack Developer and Computer Science undergraduate with strong expertise in Java, Spring Boot, React.js, and RESTful API design. Passionate about building scalable applications and AI-driven solutions, with a solid foundation in Data Structures, Algorithms, and OOP. Seeking opportunities to contribute to end-to-end product development lifecycles.</p>
+    </section>
+
+    <section id="skills">
+        <h2>TECHNICAL SKILLS</h2>
+        <div class="skills-container" id="skillsContainer">
+            <div class="skills-track" id="skillsTrack">
+                <div class="skill-item"><i class="devicon-java-plain colored skill-icon"></i><div class="skill-name">Java</div></div>
+                <div class="skill-item"><i class="devicon-python-plain colored skill-icon"></i><div class="skill-name">Python</div></div>
+                <div class="skill-item"><i class="devicon-react-original colored skill-icon"></i><div class="skill-name">React.js</div></div>
+                <div class="skill-item"><i class="devicon-spring-plain colored skill-icon"></i><div class="skill-name">Spring Boot</div></div>
+                <div class="skill-item"><i class="devicon-nodejs-plain colored skill-icon"></i><div class="skill-name">Node.js</div></div>
+                <div class="skill-item"><i class="devicon-fastapi-plain colored skill-icon"></i><div class="skill-name">FastAPI</div></div>
+                <div class="skill-item"><i class="devicon-mysql-plain colored skill-icon"></i><div class="skill-name">MySQL</div></div>
+                <div class="skill-item"><i class="devicon-postgresql-plain colored skill-icon"></i><div class="skill-name">PostgreSQL</div></div>
+                <div class="skill-item"><i class="devicon-mongodb-plain colored skill-icon"></i><div class="skill-name">MongoDB</div></div>
+                <div class="skill-item"><i class="devicon-pytorch-plain colored skill-icon"></i><div class="skill-name">PyTorch</div></div>
+                <div class="skill-item"><i class="devicon-amazonwebservices-plain-wordmark colored skill-icon"></i><div class="skill-name">AWS</div></div>
+                <div class="skill-item"><i class="devicon-linux-plain skill-icon" style="color: white;"></i><div class="skill-name">Linux</div></div>
+                <div class="skill-item"><i class="devicon-git-plain colored skill-icon"></i><div class="skill-name">Git</div></div>
+                <div class="skill-item"><i class="devicon-docker-plain colored skill-icon"></i><div class="skill-name">Docker</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>PROJECTS</h2>
+        <div class="slider-container">
+            <div class="arrow arrow-left" onclick="changeSlide(-1)">‹</div>
+            <div class="slider" id="slider">
+                <div class="slide">
+                    <div class="project-image"><img src="skyline.png" alt="SKYLINE Project"></div>
+                    <div class="project-title">SKYLINE: Airline Management System</div>
+                    <div class="tech-stack">Spring Boot • React.js • MySQL • JWT • RBAC</div>
+                    <div class="project-description">
+                        Engineered a robust Spring Boot backend implementing JWT authentication and Role-Based Access Control (RBAC) to secure REST APIs. Developed complex server-side logic for flight scheduling, ticket booking, and automated PDF ticket generation. Designed and optimized RESTful endpoints to handle high-volume CRUD operations for flights and airports.
+                    </div>
+                    <a href="https://github.com/RakeshYemineni1" target="_blank" class="project-link">View on GitHub →</a>
+                </div>
+
+                <div class="slide">
+                    <div class="project-image"><img src="ai_farmer_companion.png" alt="Smart Farmer Project"></div>
+                    <div class="project-title">AI-Powered Smart Farmer Companion</div>
+                    <div class="tech-stack">Python • FastAPI • React.js • PostgreSQL • Machine Learning</div>
+                    <div class="project-description">
+                        Developed a full-stack agricultural solution using FastAPI and PostgreSQL to efficiently manage crop data, soil analysis, and environmental datasets. Built an interactive React.js dashboard for visualizing real-time farm analytics and yield predictions. Integrated Machine Learning models for disease detection and crop yield optimization.
+                    </div>
+                    <a href="https://github.com/RakeshYemineni1" target="_blank" class="project-link">View on GitHub →</a>
+                </div>
+
+                <div class="slide">
+                    <div class="project-image">[Project Image - ShelfCam]</div>
+                    <div class="project-title">ShelfCam: Edge AI Shelf Monitoring System</div>
+                    <div class="tech-stack">PyTorch • YOLOv8 • Python • React.js • FastAPI</div>
+                    <div class="project-description">
+                        Built a full-stack Edge AI system using YOLOv8, FastAPI, and React.js to detect real-time stockouts and planogram violations. Implemented automated restocking alerts and a task management dashboard, streamlining staff workflows and reducing inventory delays.
+                    </div>
+                    <a href="https://github.com/RakeshYemineni1" target="_blank" class="project-link">View on GitHub →</a>
+                </div>
+            </div>
+            <div class="arrow arrow-right" onclick="changeSlide(1)">›</div>
+        </div>
+        <div class="dots" id="dots"></div>
+    </section>
+
+    <section>
+        <div class="two-column-grid">
+            <div class="column-section">
+                <h3>EDUCATION</h3>
+                <div class="card">
+                    <div class="card-title">Bachelor of Technology in Computer Science</div>
+                    <div class="card-date">Aug 2023 - June 2027</div>
+                    <div class="card-subtitle">Parul University — Vadodara, Gujarat</div>
+                    <p><strong>CGPA:</strong> 8.0 / 10.00</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Intermediate (Science – MPC)</div>
+                    <div class="card-date">June 2021 - April 2023</div>
+                    <div class="card-subtitle">SR Junior College — Vijayawada, Andhra Pradesh</div>
+                    <p><strong>Percentage:</strong> 93.9 / 100</p>
+                </div>
+            </div>
+
+            <div class="column-section">
+                <h3>ACHIEVEMENTS</h3>
+                <div class="card">
+                    <div class="card-title">Java, Python & DSA Certification</div>
+                    <p>Smart Interviews - Comprehensive certification in Data Structures and Algorithms</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Hackathon Achievements</div>
+                    <p>Participated in <strong>Walmart Sparkathon 2025</strong> & <strong>Finalist in Internal Hackathon for SIH</strong> among 750+ teams</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Competitive Programming</div>
+                    <p>Rated <strong>1750+</strong> & Solved <strong>500+ problems</strong> on LeetCode | <strong>2 star coder</strong> on CodeChef | <strong>5 star in Java</strong> on HackerRank</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="profiles">
+        <h2>CODING PROFILES</h2>
+        <div class="profiles-grid">
+            <a href="https://github.com/RakeshYemineni1" target="_blank" class="profile-card">
+                <img src="https://cdn.simpleicons.org/github/white" alt="GitHub" class="profile-icon">
+                <div class="profile-name">GitHub</div>
+                <div class="profile-handle">@RakeshYemineni1</div>
+            </a>
+            <a href="https://leetcode.com/u/rakeshyemineni/" target="_blank" class="profile-card">
+                <img src="https://cdn.simpleicons.org/leetcode/FFA116" alt="LeetCode" class="profile-icon">
+                <div class="profile-name">LeetCode</div>
+                <div class="profile-handle">1750+ Rating | 500+ Problems</div>
+            </a>
+            <a href="https://www.hackerrank.com/profile/yrk122005" target="_blank" class="profile-card">
+                <img src="https://hrcdn.net/fcore/assets/brand/logo-new-white-green-a5cb16e0ae.svg" alt="HackerRank" class="profile-icon hackerrank">
+                <div class="profile-name">HackerRank</div>
+                <div class="profile-handle">5 Star in Java</div>
+            </a>
+            <a href="https://www.codechef.com/users/yrakesh_12" target="_blank" class="profile-card">
+                <img src="https://cdn.simpleicons.org/codechef/white" alt="CodeChef" class="profile-icon">
+                <div class="profile-name">CodeChef</div>
+                <div class="profile-handle">2 Star Coder</div>
+            </a>
+            <a href="https://codeforces.com/profile/rakeshyemineni" target="_blank" class="profile-card">
+                <img src="https://cdn.simpleicons.org/codeforces/1F8ACB" alt="Codeforces" class="profile-icon">
+                <div class="profile-name">Codeforces</div>
+                <div class="profile-handle">@rakeshyemineni</div>
+            </a>
+            <a href="https://linkedin.com/in/yrakesh11" target="_blank" class="profile-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" class="profile-icon">
+                <div class="profile-name">LinkedIn</div>
+                <div class="profile-handle">@yrakesh11</div>
+            </a>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>CONTACT</h2>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h3>Email</h3>
+                <a href="mailto:yrk122005@gmail.com">yrk122005@gmail.com</a>
+            </div>
+            <div class="contact-card">
+                <h3>LinkedIn</h3>
+                <a href="https://linkedin.com/in/yrakesh11" target="_blank">linkedin.com/in/yrakesh11</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p style="color: #808080;">&copy; 2024 Rakesh Yemineni. Built with HTML, CSS & JavaScript.</p>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let autoSlideInterval;
+
+        function createDots() {
+            const dotsContainer = document.getElementById('dots');
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('span');
+                dot.className = 'dot';
+                dot.onclick = () => goToSlide(i);
+                dotsContainer.appendChild(dot);
+            }
+            updateDots();
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function changeSlide(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            updateSlider();
+            resetAutoSlide();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+            resetAutoSlide();
+        }
+
+        function updateSlider() {
+            const slider = document.getElementById('slider');
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            updateDots();
+        }
+
+        function autoSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(autoSlide, 5000);
+        }
+
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+
+        const sliderContainer = document.querySelector('.slider-container');
+        sliderContainer.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+        sliderContainer.addEventListener('mouseleave', startAutoSlide);
+
+        const skillsContainer = document.getElementById('skillsContainer');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        skillsContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - skillsContainer.offsetLeft;
+            scrollLeft = skillsContainer.scrollLeft;
+        });
+
+        skillsContainer.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+
+        skillsContainer.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+
+        skillsContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - skillsContainer.offsetLeft;
+            const walk = (x - startX) * 2;
+            skillsContainer.scrollLeft = scrollLeft - walk;
+        });
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        createDots();
+        startAutoSlide();
+
+        // Animated Background
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = document.body.scrollHeight;
+
+        const particles = [];
+        const particleCount = 100;
+        const codeChars = ['<', '>', '{', '}', '[', ']', '(', ')', ';', '=', '+', '-', '*', '/', '0', '1'];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.char = codeChars[Math.floor(Math.random() * codeChars.length)];
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(52, 152, 219, ${this.opacity})`;
+                ctx.font = '14px JetBrains Mono';
+                ctx.fillText(this.char, this.x, this.y);
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = document.body.scrollHeight;
+        });
+    </script>
+</body>
+</html>
+
